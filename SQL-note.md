@@ -10,7 +10,7 @@
 
 
 
-### **SQL61** **检索并列出已订购产品的清单**
+### **SQL61** 检索并列出已订购产品的清单*
 
 ```mysql
 select distinct (prod_id) from OrderItems;
@@ -35,7 +35,7 @@ o和O和0
 
 
 
-### **SQL63** **检索顾客名称并且排序**
+### SQL63 检索顾客名称并且排序
 
 - https://www.nowcoder.com/practice/6cfabb1b49554c4c8d8f9977bf6a3a5d?tpId=298&tqId=2364830&ru=/exam/oj&qru=/ta/sql-teach-yourself/question-ranking&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D298
 
@@ -44,6 +44,10 @@ select cust_name
 from Customers
 order by cust_name DESC;
 ```
+
+
+
+
 
 
 
