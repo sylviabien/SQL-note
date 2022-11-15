@@ -1,9 +1,8 @@
 # SQL-Note
-《SQL必知必会》题解+我的SQL笔记
+> 《SQL必知必会》题解+我的SQL笔记
 
-- SQL解题技巧
-- SQL题解
-- 我的SQL代码
+- 1.[SQL踩坑经验.md](./1.SQL踩坑经验.md)
+- 2.[解题技巧1-子查询的做题方法.md](./2.解题技巧1-子查询的做题方法.md)
 
 > 题单来源，[牛客网](https://www.nowcoder.com/exam/oj?page=1&tab=SQL%E7%AF%87&topicId=298)
 
