@@ -38,11 +38,42 @@ select cust_id,cust_name from Customers;
 
 ### 63.检索顾客名称并且排序
 
+```mysql
+select cust_name from Customers
+order by cust_name desc;
+```
+
+
+
 ### 64.对顾客ID和日期排序
+
+```mysql
+select cust_id,order_num
+from Orders
+order by cust_id ,order_date desc;
+```
+
+
 
 ### 65.按照数量和价格排序
 
+```mysql
+select *
+from OrderItems
+order by quantity desc,item_price desc;
+```
+
+
+
 ### 66.检查SQL语句
+
+```mysql
+select vend_name
+from Vendors
+order by vend_name desc;
+```
+
+
 
 
 
@@ -50,11 +81,42 @@ select cust_id,cust_name from Customers;
 
 ### 67. [返回固定价格的产品](https://www.nowcoder.com/practice/9949bfb933614abe8bd2bc26c129843e?tpId=298&tqId=2366910&ru=/exam/oj&qru=/ta/sql-teach-yourself/question-ranking&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D298)
 
+```mysql
+select prod_id,prod_name
+from Products
+where prod_price=9.49
+```
+
+
+
 ### 68.返回更高价格的产品
+
+```mysql
+select prod_id,prod_name
+from Products
+where prod_price >=9;
+```
+
+
 
 ### 69.返回产品并且按照价格排序
 
+```mysql
+select prod_name,prod_price
+from Products
+where prod_price between 3 and 6
+order by prod_price ;
+```
+
+
+
 ### 70.返回更多的产品
+
+```mysql
+select distinct order_num 
+from OrderItems
+where quantity >=100;
+```
 
 
 
@@ -64,11 +126,43 @@ select cust_id,cust_name from Customers;
 
 ### 71.检索供应商名称
 
+```mysql
+select vend_name
+from Vendors
+where vend_country ='USA' and vend_state ='CA';
+```
+
+
+
 ### 72.检索并列出已订购产品的清单
+
+```mysql
+select order_num,prod_id,quantity
+from OrderItems
+where prod_id in ('BR01','BR02','BR03')
+and  quantity >=100;
+```
+
+
 
 ### 73.返回所有价格在 3美元到 6美元之间的产品的名称和价格
 
+```mysql
+select prod_name,prod_price
+from Products
+where prod_price between 3 and 6
+order by prod_price asc;1
+```
+
+
+
 ### 74.纠错2
+
+```mysql
+select vend_name
+from Vendors
+where vend_country='USA' AND vend_state='CA'
+```
 
 
 
@@ -78,11 +172,43 @@ select cust_id,cust_name from Customers;
 
 ### 75.检索产品名称和描述（一）
 
+```mysql
+select prod_name,prod_desc
+from Products
+where prod_desc like '%toy';
+```
+
+
+
 ### 76.检索产品名称和描述（二）
+
+```mysql
+select prod_name,prod_desc
+from Products
+where not prod_desc like '%toy%'
+order by prod_name;
+```
+
+
 
 ### 77.检索产品名称和描述（三）
 
+```mysql
+select prod_name,prod_desc
+from Products
+where prod_desc like '%toy%'
+and prod_desc like '%carrots%';
+```
+
+
+
 ### 78.检索产品名称和描述（四）
+
+```mysql
+select prod_name,prod_desc
+from Products
+where prod_desc like '%toy%carrots%';
+```
 
 
 
@@ -92,7 +218,28 @@ select cust_id,cust_name from Customers;
 
 ### 79.别名
 
+```mysql
+select vend_id,
+vend_name as vname,
+vend_address as vaddress,
+vend_city as vcity
+from Vendors
+order by vname asc;
+```
+
+
+
 ### 80.打折
+
+```mysql
+select 
+prod_id,
+prod_price,
+prod_price*0.9 as sale_price
+from Products;
+```
+
+
 
 
 
@@ -100,7 +247,28 @@ select cust_id,cust_name from Customers;
 
 ### 81.顾客登录名
 
+```mysql
+select
+cust_id,
+cust_name,
+upper(concat(left(cust_contact,2),left(cust_city,3)))
+as user_login
+from Customers;
+```
+
+
+
 ### 82.返回 2020 年 1 月的所有订单的订单号和订单日期
+
+```mysql
+select order_num,order_date
+from Orders
+where year (order_date)=2020
+and month (order_date)=1
+order by order_date asc;
+```
+
+
 
 
 
@@ -110,25 +278,91 @@ select cust_id,cust_name from Customers;
 
 ### 83.确定已售出产品的总数
 
+```mysql
+select sum(quantity) as items_ordered
+from OrderItems;
+```
+
+
+
 ### 84.确定已售出产品项 BR01 的总数
+
+```mysql
+select sum(quantity) as items_ordered
+from OrderItems
+where prod_id like 'BR01'
+```
+
+
 
 ### 85.确定 Products 表中价格不超过 10 美元的最贵产品的价格
 
-
-
-
+```mysql
+select max(prod_price) as max_price
+from Products
+where prod_price <=10 ;
+```
 
 ## 9.分组数据
 
 ### 86.[返回每个订单号各有多少行数](https://www.nowcoder.com/practice/cf1f8d4a514d455aa0468718fb411f41?tpId=298&tqId=2374634&ru=/exam/oj&qru=/ta/sql-teach-yourself/question-ranking&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D298)
 
+
+
+```mysql
+select order_num, count(*) as order_lines
+from OrderItems
+group by order_num
+order by order_lines asc;
+```
+
+
+
 ### 87.每个供应商成本最低的产品
+
+```mysql
+select vend_id,
+min(prod_price) as cheapest_item
+from Products
+group by vend_id
+order by cheapest_item asc;
+```
+
+
 
 ### 88.确定最佳顾客
 
+```mysql
+select order_num
+from OrderItems
+group by order_num
+having sum(quantity)>=100
+order by order_num asc;
+```
+
+
+
 ### 89.确定最佳顾客的另一种方式（一）
 
+```mysql
+select order_num,
+sum(item_price*quantity ) as  total_price
+from OrderItems
+group by order_num
+having total_price>=1000
+order by order_num asc;
+```
+
+
+
 ### 90.纠错3
+
+```mysql
+select order_num,count(*) as items
+from OrderItems
+group by order_num
+having count(*)>=3
+```
 
 
 
@@ -220,13 +454,89 @@ from Products
 
 ### 96.返回顾客名称和相关订单号
 
+```mysql
+select cust_name,order_num
+from Orders,Customers
+where Customers.cust_id=Orders.cust_id
+order by cust_name asc;
+```
+
+
+
 ### 97.返回顾客名称和相关订单号以及每个订单的总价
+
+```mysql
+select 
+Customers.cust_name,
+Orders.order_num,
+sum(item_price*quantity)as OrderToal
+from Customers,Orders,OrderItems
+where Customers.cust_id=Orders.cust_id 
+ and Orders.order_num=OrderItems.order_num
+group by cust_name,order_num
+order by cust_name asc,order_num asc;
+```
+
+
 
 ### 98.返回顾客名称和相关订单号以及每个订单的总价
 
+```mysql
+select cust_id,order_date
+from Orders 
+where Orders.order_num in
+(
+    select order_num from OrderItems
+    where prod_id='BR01'
+)
+
+order by order_date asc;
+```
+
+
+
 ### 99.返回顾客名称和相关订单号以及每个订单的总价
 
+> 方法1：inner join
+
+```mysql
+select cust_email 
+from Customers 
+inner join Orders on Customers.cust_id=Orders.cust_id
+inner join OrderItems on Orders.order_num=OrderItems.order_num
+where OrderItems.prod_id='BR01';
+```
+
+> 方法2
+
+```mysql
+select cust_email
+from Customers
+where cust_id in 
+(select cust_id from Orders
+    where order_num in 
+    ( select order_num from OrderItems
+        where prod_id = 'BR01'
+      )
+  );
+```
+
+
+
 ### 100.确定最佳顾客的另一种方式（二）
+
+> inner join
+
+```mysql
+select Customers.cust_name,sum(item_price*quantity) as total_price
+from Customers 
+inner join Orders on Customers.cust_id=Orders.cust_id
+inner join OrderItems on Orders.order_num=OrderItems.order_num
+group by Customers.cust_name
+having total_price >=1000;
+```
+
+
 
 
 
@@ -234,11 +544,19 @@ from Products
 
 ### 101.确定最佳顾客的另一种方式（二）
 
+
+
 ### 102.检索每个顾客的名称和所有的订单号（二）
+
+
 
 ### 103.返回产品名称和与之相关的订单号
 
+
+
 ### 104.返回产品名称和每一项产品的总订单数
+
+
 
 ### 105.列出供应商及其可供产品的数量
 
