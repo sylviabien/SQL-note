@@ -544,21 +544,58 @@ having total_price >=1000;
 
 ### 101.确定最佳顾客的另一种方式（二）
 
+```mysql
+select cust_name,order_num
+from Customers
+inner join Orders on Customers.cust_id=Orders.cust_id
+order by cust_name asc;
+```
+
 
 
 ### 102.检索每个顾客的名称和所有的订单号（二）
+
+```mysql
+select cust_name,order_num
+from Customers
+left outer join Orders on Customers.cust_id=Orders.cust_id
+order by cust_name asc;
+```
 
 
 
 ### 103.返回产品名称和与之相关的订单号
 
+```mysql
+select prod_name,order_num
+from Products
+left outer join OrderItems on Products.prod_id=OrderItems.prod_id
+order by prod_name asc;
+```
+
 
 
 ### 104.返回产品名称和每一项产品的总订单数
 
+```mysql
+select prod_name,count(order_num)as orders
+from Products
+left outer join OrderItems on Products.prod_id=OrderItems.prod_id
+group by prod_name
+order by prod_name asc;
+```
+
 
 
 ### 105.列出供应商及其可供产品的数量
+
+```mysql
+select Vendors.vend_id,count(Products.prod_id) as prod_id
+from Vendors
+left outer join Products on Vendors.vend_id=Products.vend_id
+group by Vendors.vend_id
+order by Vendors.vend_id ;
+```
 
 
 
@@ -568,15 +605,49 @@ having total_price >=1000;
 
 ### 106.将两个 SELECT 语句结合起来(一)
 
+```mysql
+(select prod_id,quantity
+from OrderItems
+where quantity =100)
+union
+select prod_id,quantity
+from OrderItems
+where prod_id like 'BNBG%'
+order by prod_id
+```
+
 
 
 ### 107.将两个 SELECT 语句结合起来(一)
+
+```mysql
+select *
+from OrderItems
+where quantity=100
+or prod_id like 'BNBG%';
+```
 
 
 
 ### 108.组合 Products 表中的产品名称和 Customers 表中的顾客名称
 
+```mysql
+select prod_name
+from Products
+union all 
+select cust_name
+from Customers
+order by prod_name;
+```
+
 
 
 ### 109.纠错4
+
+```mysql
+select cust_name,cust_contact,cust_email
+from Customers
+where cust_state in ('MI','IL')
+order by cust_name;
+```
 
